@@ -4,16 +4,27 @@
   "description": "List apartments",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "cheerio": "^1.0.0-rc.1",
+    "cookie-parser": "^1.4.3",
+    "date-fns": "^1.28.5",
+    "debug": "^2.6.8",
+    "express": "^4.15.3",
+    "hbs": "^4.0.1",
+    "morgan": "^1.8.2",
+    "node-sass-middleware": "^0.11.0",
     "nodemon": "^1.11.0",
     "sequelize": "^4.2.1",
+    "serve-favicon": "^2.4.3",
     "sqlite3": "^3.1.8",
     "standard": "^10.0.2",
     "superagent": "^3.5.2"
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon app.js",
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "scrape": "nodemon scraper.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Spathon",

@@ -1,60 +1,51 @@
+const express = require('express')
 const path = require('path')
-const request = require('superagent')
-const cheerio = require('cheerio')
-const crypto = require('crypto')
+// const favicon = require('serve-favicon')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const sassMiddleware = require('node-sass-middleware')
 
-const { Apartment } = require('./models')
-Apartment.sync()
-const sites = require('./config/agencies')
+const index = require('./routes/index')
 
-function init () {
-  const promises = sites.map(async site => {
-    console.log('Start', site.title)
-    let response
-    try {
-      response = await request.get(site.url)
-    } catch (e) {
-      console.error('Fetch error:', e)
-      return null
-    }
-    let $ = cheerio.load(response.text)
-    const scraper = require(path.join(__dirname, './scrapers/', site.id))
-    const result = scraper($)
+const app = express()
 
-    const data = result.map(apartment => {
-      const hash = crypto.createHash('sha256')
-      hash.update(apartment.url)
-      apartment.hash = hash.digest('hex')
-      apartment.agencyId = site.id
-      return apartment
-    })
+// view engine setup
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
 
-    console.log('Finish', site.title)
-    return {
-      name: site.title,
-      data,
-      count: data.length
-    }
-  })
-  return Promise.all(promises)
-}
+// uncomment after placing your favicon in /public
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: false, // true = .sass and false = .scss
+  sourceMap: true
+}))
+app.use(express.static(path.join(__dirname, 'public')))
 
-init()
-  .then(async (agencies) => {
-    for (const agency of agencies) {
-      if (!agency) return
-      let results = 0
-      let newApartments = 0
-      for (const apt of agency.data) {
-        const res = await Apartment.findOrCreate({ where: { hash: apt.hash }, defaults: apt })
-        results++
-        if (res[1]) newApartments++
-      }
-      console.log(agency.name, 'Total:', results, 'New:', newApartments)
-    }
+app.use('/', index)
 
-    console.log('done')
-  })
-  .catch(e => {
-    console.log(e)
-  })
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
+
+  // render the error page
+  res.status(err.status || 500)
+  res.render('error')
+})
+
+module.exports = app

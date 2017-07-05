@@ -1,0 +1,20 @@
+<h1>{{title}}</h1>
+
+<ul>
+  {{#each apartments}}
+    <li>
+      <img width="200" src="{{this.img}}" alt="Apartment" />
+      <h4>
+        <a href="{{this.url}}">
+          {{this.title}}
+        </a>
+      </h4>
+      <strong>{{this.price}} €</strong> - {{this.createdAt}}
+      <br />
+      <small>{{this.sqm}}m² - rooms: {{this.rooms}}</small>
+      <p>
+        {{this.desc}}
+      </p>
+    </li>
+  {{/each}}
+</ul>
