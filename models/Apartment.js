@@ -1,8 +1,8 @@
 
 module.exports = function (sequelize, DataTypes) {
   const Apartment = sequelize.define('Apartment', {
-    agency: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
-    hash: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
+    agencyId: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
+    hash: { type: DataTypes.STRING, allowNull: false, unique: true },
     ref: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
     title: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },
     price: { type: DataTypes.STRING, allowNull: false, defaultValue: '' },

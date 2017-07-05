@@ -19,7 +19,7 @@ function grossetGrange ($) {
         price: $el.find('span.u-float--right').text(),
         desc,
         sqm: matchM2(title, desc),
-        rooms: null,
+        rooms: '',
         url: $a.attr('href'),
         img: $el.find('img.img--center').attr('src')
       }

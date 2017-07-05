@@ -16,7 +16,7 @@ function laFloriaImmobilier ($) {
         price: formatPrice($el.find('.Prix strong').text()),
         desc,
         sqm: matchM2(desc),
-        rooms: null,
+        rooms: '',
         url: $link.attr('href'),
         img
       }

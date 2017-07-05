@@ -5,29 +5,7 @@ const crypto = require('crypto')
 
 const { Apartment } = require('./models')
 Apartment.sync()
-
-const sites = [
-  {
-    id: 'cosmiqueImmobilier',
-    title: 'Cosmique Immobilier',
-    url: 'http://cosmique-immobilier.com/en/search?city_id=2&type=1&price_range=0-350000'
-  },
-  {
-    id: 'arveImmobilier',
-    title: 'Arve Immobilier',
-    url: 'http://www.arve-immobilier.com/en/purchase/ville-CHAMONIX+MONT+BLANC/cp-74400/max-290000/'
-  },
-  {
-    id: 'grossetGrange',
-    title: 'Grosset GranGe',
-    url: 'http://grossetgrange.com/fr/resultat/?lang=fr&location%5BCHAMONIX+MONT+BLANC%5D=CHAMONIX+MONT+BLANC&maxprix=300000&nbref=&search=ENVOYER&PHPSESSID=1e19c507d932c71bb6a457876bd0a90b&240planBAK=R2339304326&240plan=R3762709807'
-  },
-  {
-    id: 'lafloriaImmobilier',
-    title: 'lafloria-immobilier',
-    url: 'http://www.lafloria-immobilier.com/en/search?type=2&city_id=2&price_range=0-300000&Trouver=Find#properties'
-  }
-]
+const sites = require('./config/agencies')
 
 function init () {
   const promises = sites.map(async site => {
@@ -40,12 +18,14 @@ function init () {
       return null
     }
     let $ = cheerio.load(response.text)
-    const result = require(path.join(__dirname, './scrapers/', site.id))($)
+    const scraper = require(path.join(__dirname, './scrapers/', site.id))
+    const result = scraper($)
 
     const data = result.map(apartment => {
       const hash = crypto.createHash('sha256')
       hash.update(apartment.url)
       apartment.hash = hash.digest('hex')
+      apartment.agencyId = site.id
       return apartment
     })
 
@@ -60,11 +40,19 @@ function init () {
 }
 
 init()
-  .then((places) => {
-    places.forEach(place => {
-      if (!place) return
-      console.log(place.name, place.count)
-    })
+  .then(async (agencies) => {
+    for (const agency of agencies) {
+      if (!agency) return
+      let results = 0
+      let newApartments = 0
+      for (const apt of agency.data) {
+        const res = await Apartment.findOrCreate({ where: { hash: apt.hash }, defaults: apt })
+        results++
+        if (res[1]) newApartments++
+      }
+      console.log(agency.name, 'Total:', results, 'New:', newApartments)
+    }
+
     console.log('done')
   })
   .catch(e => {
