@@ -12,7 +12,14 @@ function init () {
     console.log('Start', site.title)
     let response
     try {
-      response = await request.get(site.url)
+      if (site.post) {
+        response = await request
+          .post(site.url)
+          .type('form')
+          .send(site.post)
+      } else {
+        response = await request.get(site.url)
+      }
     } catch (e) {
       console.error('Fetch error:', e)
       return null

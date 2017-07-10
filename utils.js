@@ -1,6 +1,10 @@
 
+function removeNoneDigit (text) {
+  return text.replace(/ /g, '').replace(/\D/g, '')
+}
+
 function formatPrice (priceText) {
-  return priceText.replace(/ /g, '').replace(/\D/g, '')
+  return removeNoneDigit(priceText)
 }
 
 function trimM2 (text) {
@@ -22,5 +26,6 @@ function matchM2 (text, altText = '') {
 module.exports = {
   formatPrice,
   trimM2,
-  matchM2
+  matchM2,
+  removeNoneDigit
 }

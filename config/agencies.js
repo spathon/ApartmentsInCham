@@ -1,5 +1,23 @@
 const agencies = [
   {
+    id: 'chamImmo',
+    title: 'Cham Immo',
+    url: 'http://www.cham-immo.com/en/sales',
+    post: {
+      'transaction_search[prix_max]': 270000,
+      'transaction_search[commune]': 31891
+    }
+  },
+  {
+    id: 'juliettecoimmobilier',
+    title: 'Juliette and co immobilier',
+    url: 'http://www.juliettecoimmobilier.com/results',
+    post: {
+      'site_frm_select_commune': 'CHAMONIX MONT BLANC',
+      'site_frm_select_budget': '0-270000'
+    }
+  },
+  {
     id: 'cosmiqueImmobilier',
     title: 'Cosmique Immobilier',
     url: 'http://cosmique-immobilier.com/en/search?city_id=2&type=1&price_range=0-350000'
