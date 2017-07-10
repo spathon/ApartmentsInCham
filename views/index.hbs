@@ -3,7 +3,8 @@
 <ul>
   {{#each apartments}}
     <li>
-      <img width="200" src="{{this.img}}" alt="Apartment" />
+      <div class="image" style="background-image: url({{this.img}})">
+      </div>
       <h4>
         <a href="{{this.url}}">
           {{this.title}}
