@@ -1,5 +1,17 @@
 const agencies = [
   {
+    id: 'chamonixProperty',
+    title: 'Chamonix Property (Mountain Base)',
+    url: 'http://www.chamonix-property.com/search_results/ajax_request.php',
+    post: {
+      id_lang: 1,
+      action: 'default_search_property',
+      parameters: '{"id_page":"40","SEARCH_id_country":"1","fname":"search_results.php","SEARCH_id_resort":"19","SEARCH_id_accom_type":"Any","SEARCH_id_budget":"1","sort_by":null}',
+      id_website: 2
+    },
+    custom: true
+  },
+  {
     id: 'chamImmo',
     title: 'Cham Immo',
     url: 'http://www.cham-immo.com/en/sales',

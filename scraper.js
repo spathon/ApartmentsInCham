@@ -26,7 +26,7 @@ function init () {
     }
     let $ = cheerio.load(response.text)
     const scraper = require(path.join(__dirname, './scrapers/', site.id))
-    const result = scraper($)
+    const result = scraper($, response)
 
     const data = result.map(apartment => {
       const hash = crypto.createHash('sha256')
