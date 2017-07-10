@@ -1,2 +1,4 @@
 node_modules
 /db.sqlite
+/public/stylesheets/style.css
+/public/stylesheets/style.css.map
