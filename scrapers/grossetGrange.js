@@ -1,4 +1,4 @@
-const { matchM2 } = require('../utils')
+const { formatPrice, matchM2 } = require('../utils')
 
 function grossetGrange ($) {
   const places = $('.u-soft > .o-layout.o-layout--space')
@@ -16,7 +16,7 @@ function grossetGrange ($) {
       return {
         ref: $a.attr('title'),
         title,
-        price: $el.find('span.u-float--right').text(),
+        price: formatPrice($el.find('span.u-float--right').text()),
         desc,
         sqm: matchM2(title, desc),
         rooms: '',

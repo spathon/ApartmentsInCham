@@ -2,6 +2,7 @@ const path = require('path')
 const request = require('superagent')
 const cheerio = require('cheerio')
 const crypto = require('crypto')
+const urljoin = require('url-join')
 
 const { Apartment } = require('./models')
 Apartment.sync()
@@ -28,13 +29,24 @@ function init () {
     const scraper = require(path.join(__dirname, './scrapers/', site.id))
     const result = scraper($, response)
 
-    const data = result.map(apartment => {
-      const hash = crypto.createHash('sha256')
-      hash.update(apartment.url)
-      apartment.hash = hash.digest('hex')
-      apartment.agencyId = site.id
-      return apartment
-    })
+    const data = result
+      .filter(apartment => apartment.price && apartment.price < 300000)
+      .map(apartment => {
+        const hash = crypto.createHash('sha256')
+        hash.update(apartment.url)
+        apartment.hash = hash.digest('hex')
+        apartment.agencyId = site.id
+
+        if (apartment.url && !apartment.url.startsWith('http')) {
+          apartment.url = urljoin(site.baseUrl, apartment.url)
+        }
+
+        if (apartment.img && !apartment.img.startsWith('http')) {
+          apartment.img = urljoin(site.baseUrl, apartment.img)
+        }
+
+        return apartment
+      })
 
     console.log('Finish', site.title)
     return {

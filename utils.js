@@ -13,12 +13,14 @@ function trimM2 (text) {
 
 function matchM2 (text, altText = '') {
   const m2 = text.match(/([0-9,]+ ?m[2²])/)
+  let m2alt
   let output = null
   if (m2) {
     output = m2[1]
   } else {
-    const m2alt = altText.match(/([0-9,]+ ?m[2²])/)
+    m2alt = altText.match(/([0-9,]+ ?m[2²])/)
     if (m2alt) output = m2alt[1]
+    else return ''
   }
   return parseInt(output, 10)
 }
