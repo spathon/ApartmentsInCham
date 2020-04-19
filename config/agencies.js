@@ -1,12 +1,10 @@
 const agencies = [
-
   {
     id: 'taraImmobilier',
     title: 'Tara Immobilier',
     baseUrl: 'http://www.tara-immobilier.com',
     url: 'http://www.tara-immobilier.com/recherche,incl_recherche_basic_ajax.htm?ci=740056&surfacemin=Min&surfacemax=Max&surf_terrainmin=Min&surf_terrainmax=Max&pxmin=Min&pxmax=280000&idqfix=1&idtt=2&pres=basic&lang=fr&tri=d_dt_crea&_=1500727810449'
   },
-
   {
     id: 'century21',
     title: 'century21',

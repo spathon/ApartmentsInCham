@@ -6,7 +6,7 @@ function grossetGrange ($) {
       const $el = $(el)
       const price = parseInt($el.find('span.u-float--right').text().replace(/ /g, ''))
       const place = $el.find('.o-layout__item > p.u-weight--bold.u-hN.u-text--medium').text()
-      return price < 300000 && place.includes('CHAMONIX MONT BLANC')
+      return place.includes('CHAMONIX MONT BLANC')
     })
     .map(function (i, el) {
       const $el = $(el)

@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 const crypto = require('crypto')
 const urljoin = require('url-join')
 
-const { Apartment } = require('./models')
+const { Apartment, sequelize } = require('./models')
 Apartment.sync()
 const sites = require('./config/agencies')
 
@@ -22,7 +22,7 @@ function init () {
         response = await request.get(site.url)
       }
     } catch (e) {
-      console.error('Fetch error:', e)
+      console.error('Fetch error:', e.status, site)
       return null
     }
     let $ = cheerio.load(response.text)
@@ -30,7 +30,6 @@ function init () {
     const result = scraper($, response)
 
     const data = result
-      .filter(apartment => apartment.price && apartment.price < 300000)
       .map(apartment => {
         const hash = crypto.createHash('sha256')
         hash.update(apartment.url)
@@ -61,7 +60,7 @@ function init () {
 init()
   .then(async (agencies) => {
     for (const agency of agencies) {
-      if (!agency) return
+      if (!agency) continue
       let results = 0
       let newApartments = 0
       for (const apt of agency.data) {
@@ -72,6 +71,7 @@ init()
       console.log(agency.name, 'Total:', results, 'New:', newApartments)
     }
 
+    sequelize.close()
     console.log('done')
   })
   .catch(e => {

@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
   }
   const apartments = result.map(instance => {
     const apartment = Object.assign({}, instance.toJSON())
-    apartment.createdAt = format(apartment.createdAt, 'D MMMM YYYY - HH:mm')
+    apartment.createdAt = format(apartment.createdAt, 'd MMMM yyyy - HH:mm')
     return apartment
   })
   res.render('index', { title: 'Apartments in Chamonix', apartments })
