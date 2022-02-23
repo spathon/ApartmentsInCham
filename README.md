@@ -9,4 +9,4 @@
 
 ### Simple view of the results
 * npm run start
-* Visit [localhost:3000](http://localhost:3000)
+* Visit [localhost:1337](http://localhost:1337)
