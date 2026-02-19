@@ -2,6 +2,11 @@ import type { CheerioAPI } from 'cheerio'
 import type { Scraper } from '../types/scraper.js'
 import { formatPrice, matchM2 } from '../utils.js'
 
+function matchM2FromUrl(url: string): string {
+  const match = url.match(/(\d+)-m2/)
+  return match ? match[1] : ''
+}
+
 const aim: Scraper = {
   type: 'cheerio',
   scrape($: CheerioAPI) {
@@ -20,7 +25,7 @@ const aim: Scraper = {
         title: titleText,
         price: formatPrice($el.find('.txt-price-lg').text()),
         desc,
-        sqm: matchM2(desc, url),
+        sqm: matchM2(desc, titleText) || matchM2FromUrl(url),
         rooms: '',
         url,
         img: $el.find('.img-md img').attr('src') ?? '',

@@ -27,7 +27,7 @@ export const agencies: AgencyConfig[] = [
       'transaction_search[prix_max]': 270000,
       'transaction_search[commune]': 31891,
     },
-    scrapeMethod: 'cheerio',
+    scrapeMethod: 'playwright',
   },
   {
     id: 'lafloriaImmobilier',
@@ -123,14 +123,6 @@ export const agencies: AgencyConfig[] = [
     baseUrl: 'https://www.peakimmobilier.com',
     url: 'https://www.peakimmobilier.com/appartements-a-vendre/',
     logo: 'https://peakimmobilier.com/wp-content/uploads/2022/02/PEAK_logo_V_detoure.png',
-    scrapeMethod: 'playwright',
-  },
-  {
-    id: 'michaelZingraf',
-    title: 'Michael Zingraf',
-    baseUrl: 'https://www.michaelzingraf.com',
-    url: 'https://www.michaelzingraf.com/en/sale/alps/chamonix',
-    logo: 'https://www.michaelzingraf.com/images/logo-mzre-mobile.svg',
     scrapeMethod: 'playwright',
   },
   {

@@ -1,6 +1,6 @@
 import type { CheerioAPI } from 'cheerio'
 import type { Scraper } from '../types/scraper.js'
-import { formatPrice, matchM2 } from '../utils.js'
+import { matchM2, matchPrice } from '../utils.js'
 
 const montBlancImmobilier: Scraper = {
   type: 'cheerio',
@@ -16,28 +16,26 @@ const montBlancImmobilier: Scraper = {
       img: string
     }[] = []
 
-    $('a[href*="/transaction/catalogue/"]').each((_i, el) => {
+    $('.Card.Card_Lots').each((_i, el) => {
       const $el = $(el)
       const fullText = $el.text()
 
       if (/vendu/i.test(fullText)) return
 
-      const url = $el.attr('href') ?? ''
-      const img = $el.find('img').attr('src') ?? ''
-      const title = $el.find('.property-type, h2, h3').first().text().trim()
+      const url = $el.find('.Card_Medias a').attr('href') ?? ''
+      const img = $el.find('.Card_Medias img').attr('src') ?? ''
+      const title = $el.find('.Card_Title_Libelle').text().trim()
+      const price = matchPrice($el.find('.Card_Price').text())
+      const descText = $el.find('.Card_Desc').text().trim()
+      const sqm = matchM2(descText)
 
-      const detailsText = $el.find('.details, .property-details').text()
-      const sqm = matchM2(detailsText, fullText)
-      const roomsMatch = fullText.match(/(\d+)\s*pi[eè]ce/i)
+      const roomsMatch = descText.match(/(\d+)\s*pi[eè]ce/i)
       const rooms = roomsMatch ? roomsMatch[1] : ''
 
-      const priceMatch = fullText.match(/[\d\s,.]+\s*€/)
-      const price = priceMatch ? formatPrice(priceMatch[0]) : ''
-
-      const refMatch = fullText.match(/R[eé]f[.\s:]*(\w+)/i)
+      const refMatch = descText.match(/R[eé]f[.\s:]*(\w+)/i)
       const ref = refMatch ? refMatch[1] : ''
 
-      results.push({ ref, title, price, desc: detailsText.trim(), sqm, rooms, url, img })
+      results.push({ ref, title, price, desc: descText, sqm, rooms, url, img })
     })
 
     return results

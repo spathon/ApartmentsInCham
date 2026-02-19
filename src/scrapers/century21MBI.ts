@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio'
 import type { Scraper } from '../types/scraper.js'
-import { formatPrice, matchM2 } from '../utils.js'
+import { matchM2, matchPrice } from '../utils.js'
 
 const century21MBI: Scraper = {
   type: 'playwright',
@@ -25,19 +25,23 @@ const century21MBI: Scraper = {
       const img = $el.find('img').attr('src') ?? ''
       const title = $el.find('h2, h3, .c21-listing__title').first().text().trim()
 
-      const fullText = $el.text()
-      const sqm = matchM2(fullText)
+      let sqm = ''
+      let price = ''
+      let rooms = ''
+      let ref = ''
 
-      const roomsMatch = fullText.match(/(\d+)\s*pi[eè]ce/i)
-      const rooms = roomsMatch ? roomsMatch[1] : ''
+      $el.find('h2, h3, p, span, div').each((_j, child) => {
+        const text = $(child).text().trim()
+        if (!sqm) sqm = matchM2(text)
+        if (!price) price = matchPrice(text)
+        const roomsMatch = text.match(/(\d+)\s*pi[eè]ce/i)
+        if (!rooms && roomsMatch) rooms = roomsMatch[1]
+        const refMatch = text.match(/Ref\s*:?\s*(\d+)/i)
+        if (!ref && refMatch) ref = refMatch[1]
+      })
 
-      const priceMatch = fullText.match(/[\d\s,.]+\s*€/)
-      const price = priceMatch ? formatPrice(priceMatch[0]) : ''
-
-      const refMatch = fullText.match(/Ref\s*:?\s*(\d+)/i)
-      const ref = refMatch ? refMatch[1] : ''
-
-      results.push({ ref, title, price, desc: fullText.trim(), sqm, rooms, url, img })
+      const fullText = $el.text().trim()
+      results.push({ ref, title, price, desc: fullText, sqm, rooms, url, img })
     })
 
     return results

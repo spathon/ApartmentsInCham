@@ -14,7 +14,6 @@ import century21MBI from './century21MBI.js'
 import schussImmobilier from './schussImmobilier.js'
 import chevallierImmobilier from './chevallierImmobilier.js'
 import peakImmobilier from './peakImmobilier.js'
-import michaelZingraf from './michaelZingraf.js'
 import taraImmobilier from './taraImmobilier.js'
 import foncia from './foncia.js'
 
@@ -34,7 +33,6 @@ export const scrapers: Record<string, Scraper> = {
   schussImmobilier,
   chevallierImmobilier,
   peakImmobilier,
-  michaelZingraf,
   taraImmobilier,
   foncia,
 }

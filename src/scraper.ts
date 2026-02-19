@@ -1,5 +1,6 @@
 import crypto from 'node:crypto'
 import * as cheerio from 'cheerio'
+import { sql } from 'drizzle-orm'
 import { db, schema } from './db/index.js'
 import { agencies } from './config/agencies.js'
 import { scrapers } from './scrapers/index.js'
@@ -7,20 +8,25 @@ import { ApartmentSchema } from './types/apartment.js'
 import { getBrowser, closeBrowser } from './lib/browser.js'
 import type { RawApartment } from './types/apartment.js'
 
+const USER_AGENT =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+
 async function fetchHtml(url: string, post?: Record<string, string | number>): Promise<string> {
+  const headers: Record<string, string> = { 'User-Agent': USER_AGENT }
   if (post) {
     const params = new URLSearchParams()
     for (const [key, value] of Object.entries(post)) {
       params.append(key, String(value))
     }
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers,
       body: params.toString(),
     })
     return response.text()
   }
-  const response = await fetch(url)
+  const response = await fetch(url, { headers })
   return response.text()
 }
 
@@ -93,14 +99,26 @@ async function init() {
       const result = db
         .insert(schema.apartments)
         .values(parsed.data)
-        .onConflictDoNothing({ target: schema.apartments.hash })
+        .onConflictDoUpdate({
+          target: schema.apartments.hash,
+          set: {
+            ref: parsed.data.ref,
+            title: parsed.data.title,
+            price: parsed.data.price,
+            desc: parsed.data.desc,
+            sqm: parsed.data.sqm,
+            rooms: parsed.data.rooms,
+            img: parsed.data.img,
+            updatedAt: sql`datetime('now')`,
+          },
+        })
         .run()
 
       total++
       if (result.changes > 0) inserted++
     }
 
-    console.log(`Finish ${site.title} — Total: ${total}, New: ${inserted}`)
+    console.log(`Finish ${site.title} — Total: ${total}, Updated: ${inserted}`)
   }
 
   if (usedPlaywright) {
