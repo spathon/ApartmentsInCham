@@ -3,6 +3,7 @@ export interface AgencyConfig {
   title: string
   baseUrl: string
   url: string
+  logo: string
   post?: Record<string, string | number>
   scrapeMethod: 'cheerio' | 'playwright'
 }

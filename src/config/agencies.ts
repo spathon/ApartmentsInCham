@@ -6,6 +6,7 @@ export const agencies: AgencyConfig[] = [
     title: 'AIM',
     baseUrl: 'http://www.agenceaim.com',
     url: 'http://www.agenceaim.com/summary.php?seltype=location&subtype=1',
+    logo: 'https://www.agenceaim.com/graphics/aim-logo-sq.png',
     scrapeMethod: 'cheerio',
   },
   {
@@ -13,6 +14,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Antoine Immobilier',
     baseUrl: 'http://www.antoine-immo.com',
     url: 'http://www.antoine-immo.com/en/all-property-for-sale',
+    logo: 'https://www.antoine-immo.com/graphics/logo-2019.png',
     scrapeMethod: 'cheerio',
   },
   {
@@ -20,6 +22,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Cham Immo',
     baseUrl: 'http://www.cham-immo.com',
     url: 'http://www.cham-immo.com/en/sales',
+    logo: 'https://www.cham-immo.com/ressources_client/images/logo.png',
     post: {
       'transaction_search[prix_max]': 270000,
       'transaction_search[commune]': 31891,
@@ -31,6 +34,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Lafloria Immobilier',
     baseUrl: 'http://www.lafloria-immobilier.com',
     url: 'http://www.lafloria-immobilier.com/en/search?type=2&city_id=2&price_range=0-350000&Trouver=Find#properties',
+    logo: 'https://www.lafloria-immobilier.com/img/la-floria-immobilier-top-logo.svg',
     scrapeMethod: 'cheerio',
   },
   {
@@ -38,6 +42,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Clip Immobilier',
     baseUrl: 'https://www.clip-immobilier.com',
     url: 'https://www.clip-immobilier.com/a-vendre/appartements/1',
+    logo: 'https://clip-immo.staticlbi.com/original/images/logoSite.png',
     scrapeMethod: 'cheerio',
   },
   {
@@ -45,6 +50,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Arve Immobilier',
     baseUrl: 'https://arve-immobilier.com',
     url: 'https://arve-immobilier.com/acheter/',
+    logo: 'https://www.google.com/s2/favicons?domain=arve-immobilier.com&sz=64',
     scrapeMethod: 'cheerio',
   },
   {
@@ -52,6 +58,7 @@ export const agencies: AgencyConfig[] = [
     title: 'BARNES Mont-Blanc',
     baseUrl: 'https://www.barnes-montblanc.com',
     url: 'https://www.barnes-montblanc.com/en/luxury-real-estate/savoy-region',
+    logo: 'https://www.barnes-montblanc.com/assets/logo-header-barnes-262c21c4fe4a90e4a7cb2927703355fcb41ce9fc84d2371fe2225d4eec380655.svg',
     scrapeMethod: 'playwright',
   },
   {
@@ -59,6 +66,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Cimalpes',
     baseUrl: 'https://cimalpes.com',
     url: 'https://cimalpes.com/en/real-estate-chamonix/',
+    logo: 'https://cimalpes.com/assets/img/logo-cimalpes01.svg',
     scrapeMethod: 'playwright',
   },
   {
@@ -66,6 +74,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Alpes & Chalets',
     baseUrl: 'https://www.alpes-chalets.com',
     url: 'https://www.alpes-chalets.com/en/buy',
+    logo: 'https://www.alpes-chalets.com/images/logoSite.png',
     scrapeMethod: 'playwright',
   },
   {
@@ -73,6 +82,7 @@ export const agencies: AgencyConfig[] = [
     title: 'CHX Immobilier',
     baseUrl: 'https://www.chximmobilier.com',
     url: 'https://www.chximmobilier.com/fr/vente/1/',
+    logo: 'https://www.chximmobilier.com/images/CHX/logo.png',
     scrapeMethod: 'cheerio',
   },
   {
@@ -80,6 +90,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Mont-Blanc Immobilier',
     baseUrl: 'https://www.mont-blanc-immobilier.fr',
     url: 'https://www.mont-blanc-immobilier.fr/chamonix/achat-appartement/',
+    logo: 'https://www.google.com/s2/favicons?domain=mont-blanc-immobilier.fr&sz=64',
     scrapeMethod: 'cheerio',
   },
   {
@@ -87,6 +98,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Century 21 MBI',
     baseUrl: 'https://www.century21-mbi-chamonix.com',
     url: 'https://www.century21-mbi-chamonix.com/annonces/achat-appartement/v-chamonix+mont+blanc/',
+    logo: 'https://www.google.com/s2/favicons?domain=century21.fr&sz=64',
     scrapeMethod: 'playwright',
   },
   {
@@ -94,6 +106,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Schuss Immobilier',
     baseUrl: 'https://www.chamonix-schuss.com',
     url: 'https://www.chamonix-schuss.com/en/sale/apartment/chamonix-mont-blanc/74400',
+    logo: 'https://www.google.com/s2/favicons?domain=chamonix-schuss.com&sz=64',
     scrapeMethod: 'playwright',
   },
   {
@@ -101,6 +114,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Chevallier Immobilier',
     baseUrl: 'https://www.chevallier-immobilier.com',
     url: 'https://www.chevallier-immobilier.com/en/buy/apartment/chamonix-mont-blanc-74400',
+    logo: 'https://www.chevallier-immobilier.com/ressources_client/images/logo.png',
     scrapeMethod: 'playwright',
   },
   {
@@ -108,6 +122,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Peak Immobilier',
     baseUrl: 'https://www.peakimmobilier.com',
     url: 'https://www.peakimmobilier.com/appartements-a-vendre/',
+    logo: 'https://peakimmobilier.com/wp-content/uploads/2022/02/PEAK_logo_V_detoure.png',
     scrapeMethod: 'playwright',
   },
   {
@@ -115,6 +130,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Michael Zingraf',
     baseUrl: 'https://www.michaelzingraf.com',
     url: 'https://www.michaelzingraf.com/en/sale/alps/chamonix',
+    logo: 'https://www.michaelzingraf.com/images/logo-mzre-mobile.svg',
     scrapeMethod: 'playwright',
   },
   {
@@ -122,6 +138,7 @@ export const agencies: AgencyConfig[] = [
     title: 'Tara Immobilier',
     baseUrl: 'https://www.tara-immobilier.com',
     url: 'https://www.tara-immobilier.com/vendre,106',
+    logo: 'https://www.google.com/s2/favicons?domain=tara-immobilier.com&sz=64',
     scrapeMethod: 'playwright',
   },
   {
@@ -129,6 +146,11 @@ export const agencies: AgencyConfig[] = [
     title: 'Foncia',
     baseUrl: 'https://fr.foncia.com',
     url: 'https://fr.foncia.com/achat/chamonix-mont-blanc-74400',
+    logo: 'https://www.google.com/s2/favicons?domain=foncia.com&sz=64',
     scrapeMethod: 'playwright',
   },
 ]
+
+export const agencyMap: Record<string, AgencyConfig> = Object.fromEntries(
+  agencies.map((a) => [a.id, a])
+)
