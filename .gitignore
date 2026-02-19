@@ -1,4 +1,5 @@
 node_modules
+dist/
 /db.sqlite
-/public/stylesheets/style.css
-/public/stylesheets/style.css.map
+/db.sqlite-wal
+/db.sqlite-shm

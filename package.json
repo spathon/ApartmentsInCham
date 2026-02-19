@@ -1,32 +1,31 @@
 {
   "name": "apartments-in-cham",
-  "version": "1.0.0",
-  "description": "List apartments",
-  "main": "app.js",
+  "version": "2.0.0",
+  "description": "List apartments in Chamonix",
+  "type": "module",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "cheerio": "^1.0.0-rc.1",
-    "cookie-parser": "^1.4.3",
-    "date-fns": "^2.0.0",
-    "debug": "^4.0.0",
-    "express": "^4.15.3",
-    "hbs": "^4.0.1",
-    "morgan": "^1.8.2",
-    "node-sass-middleware": "^1.0.1",
-    "nodemon": "^2.0.0",
-    "sequelize": "^5.0.0",
-    "serve-favicon": "^2.4.3",
-    "sqlite3": "^4.0.0",
-    "superagent": "^5.0.0",
-    "url-join": "^4.0.0"
+    "@hono/node-server": "^1.19.9",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.3.0",
+    "better-sqlite3": "^12.6.2",
+    "cheerio": "^1.2.0",
+    "date-fns": "^4.1.0",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.12.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "drizzle-kit": "^0.31.9"
+  },
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "scrape": "node scraper.js",
-    "dev:scrape": "nodemon scraper.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --import tsx src/bin/www.ts",
+    "dev": "tsx watch src/bin/www.ts",
+    "scrape": "tsx src/scraper.ts",
+    "dev:scrape": "tsx watch src/scraper.ts",
+    "build": "tsc",
+    "db:push": "drizzle-kit push"
   },
   "author": "Spathon",
   "license": "MIT"
