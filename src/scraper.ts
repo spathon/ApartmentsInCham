@@ -30,6 +30,7 @@ function hashUrl(url: string): string {
 
 function resolveUrl(path: string, baseUrl: string): string {
   if (path.startsWith('http')) return path
+  if (path.startsWith('//')) return `https:${path}`
   return new URL(path, baseUrl).href
 }
 

@@ -3,3 +3,4 @@ dist/
 /db.sqlite
 /db.sqlite-wal
 /db.sqlite-shm
+/db-old.sqlite

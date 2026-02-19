@@ -11,11 +11,12 @@ export function trimM2(text: string): string {
 }
 
 export function matchM2(text: string, altText = ''): string {
-  const m2 = text.match(/([0-9,]+ ?m[2²])/)
+  const pattern = /([0-9,.]+)\s*(?:m[2²]|sq\.?\s*m)/i
+  const m2 = text.match(pattern)
   if (m2) {
     return String(parseInt(m2[1], 10))
   }
-  const m2alt = altText.match(/([0-9,]+ ?m[2²])/)
+  const m2alt = altText.match(pattern)
   if (m2alt) {
     return String(parseInt(m2alt[1], 10))
   }
